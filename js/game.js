@@ -41,6 +41,37 @@ class Game {
 
     update() {
         this.player.move();
+        this.obstacles.push(new Obstacle(this.gameScreen));
+
+        for (const obstacle of this.obstacles) {
+            if (this.player.didCollide(obstacle)) {
+                this.lives -= 1;
+                this.removeObstacle(obstacle);
+            }
+
+            if (obstacle.top > this.gameScreen.offsetHeight + obstacle.height) {
+                this.score += 1;
+                this.removeObstacle(obstacle);
+            }
+
+            if (this.lives <= 0) {
+                this.endGame();
+            }
+        }
+    }
+
+    endGame() {
+        this.gameScreen.style.display = "none";
+        this.gameEndScreen.style.display = "flex";
+    }
+
+    removeObstacle(obstacle) {
+        if (this.obstacles.includes(obstacle)) {
+            this.obstacle.remove();
+            this.obstacles = this.obstacles.filter(currentElement => {
+                return currentElement !== obstacle;
+            })
+        }
     }
 
 
