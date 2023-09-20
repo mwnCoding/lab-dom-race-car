@@ -4,6 +4,8 @@ class Game {
         this.startScreen = document.getElementById("game-intro");
         this.gameScreen = document.getElementById("game-screen");
         this.gameEndScreen = document.getElementById("game-end");
+        this.scoreElement = document.getElementById("score");
+        this.livesElement = document.getElementById("lives");
         this.player = new Player(
             this.gameScreen,
             200,
@@ -41,38 +43,39 @@ class Game {
 
     update() {
         this.player.move();
-        this.obstacles.push(new Obstacle(this.gameScreen));
 
-        for (const obstacle of this.obstacles) {
+        for (let i = 0; i < this.obstacles.length; i++) {
+            const obstacle = this.obstacles[i];
+            obstacle.move();
+
             if (this.player.didCollide(obstacle)) {
                 this.lives -= 1;
-                this.removeObstacle(obstacle);
-            }
-
-            if (obstacle.top > this.gameScreen.offsetHeight + obstacle.height) {
+                obstacle.element.remove();
+                this.obstacles.splice(i, 1)
+                i--;
+            } else if (obstacle.top > this.height ) {
                 this.score += 1;
-                this.removeObstacle(obstacle);
-            }
-
-            if (this.lives <= 0) {
-                this.endGame();
+                obstacle.element.remove();
+                this.obstacles.splice(i, 1);
+                i--;
             }
         }
+
+        this.livesElement.innerText = `${this.lives}`;
+        this.scoreElement.innerText = `${this.score}`;
+
+        if (this.lives === 0) {
+            this.endGame();
+        }
+
+        if (this.obstacles.length < 1 && Math.random() > 0.98) {
+            console.log("newObstacle");
+            this.obstacles.push(new Obstacle(this.gameScreen));
+          }
     }
 
     endGame() {
         this.gameScreen.style.display = "none";
-        this.gameEndScreen.style.display = "flex";
+        this.gameEndScreen.style.display = "block";
     }
-
-    removeObstacle(obstacle) {
-        if (this.obstacles.includes(obstacle)) {
-            this.obstacle.remove();
-            this.obstacles = this.obstacles.filter(currentElement => {
-                return currentElement !== obstacle;
-            })
-        }
-    }
-
-
 }

@@ -7,10 +7,18 @@ window.onload = function () {
     startGame();
   });
 
+  restartButton.addEventListener("click", function() {
+    restartGame();
+  } )
+
 
   function startGame() {
     game = new Game();
     game.start();
+  }
+
+  function restartGame() {
+    location.reload();
   }
 
   function handleKeydown(event) {
