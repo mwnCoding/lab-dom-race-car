@@ -14,22 +14,25 @@ class Game {
     }
 
     start() {
-        this.gameScreen.style.height = this.height;
-        this.gameScreen.style.width = this.width;
+        this.gameScreen.style.height = `${this.height}px`;
+        this.gameScreen.style.width = `${this.width}px`;
         this.startScreen.style.display = "none";
-        this.gameScreen.style.display = "flex";
+        this.gameScreen.style.display = "block";
         this.gameLoop();
     }
 
     gameLoop() {
         if (!this.gameOver) {
             this.update();
-            window.requestAnimationFrame(this.gameLoop);
+            window.requestAnimationFrame(() => this.gameLoop());
+        }
+        else {
+            return;
         }
     }
 
     update() {
-        
+        console.log("updating");
     }
 
 
