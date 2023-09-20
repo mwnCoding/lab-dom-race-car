@@ -25,12 +25,12 @@ class Player {
         this.top += this.directionY;
         this.left += this.directionX;
 
-        if (this.left < this.width + 10) {
-            this.left = this.width + 10;
+        if (this.left < + 10) {
+            this.left = 10;
         }
 
-        if (this.top < this.height + 10) {
-            this.top = this.height + 10;
+        if (this.top < 10) {
+            this.top = 10;
         }
 
         if (this.left > this.gameScreen.offsetWidth - this.width - 10) {
@@ -45,8 +45,8 @@ class Player {
     }
 
     updatePosition() {
-        this.element.style.top = `${this.top}`;
-        this.element.style.left = `${this.left}`;
+        this.element.style.top = `${this.top}px`;
+        this.element.style.left = `${this.left}px`;
     }
 
     didCollide(obstacle) {
