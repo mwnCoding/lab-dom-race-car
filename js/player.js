@@ -1,21 +1,21 @@
 class Player {
-    constructor (left, top, width, height, imageSource) {
-        this.gameScreen = document.getElementById('gameScreen');
+    constructor (gameScreen, left, top, width, height, imageSource) {
+        this.gameScreen = gameScreen;
         this.left = left;
         this.top = top;
         this.width = width;
         this.height = height;
         this.directionX = 0;
         this.directionY = 0;
-        this.element =  this.document.createElement("img");
+        this.element =  document.createElement("img");
 
         this.element.src = imageSource;
         this.element.style.position = "absolute"
 
-        this.element.style.left = this.left;
-        this.element.style.top = this.top;
-        this.element.style.width = this.width;
-        this.element.style.height = this.width;
+        this.element.style.left = `${this.left}px`;
+        this.element.style.top = `${this.top}px`;
+        this.element.style.width = `${this.width}px`;
+        this.element.style.height = `${this.height}px`;
 
         this.gameScreen.appendChild(this.element);
         
@@ -66,5 +66,5 @@ class Player {
         }
     }
 
-    
+
 }

@@ -4,7 +4,14 @@ class Game {
         this.startScreen = document.getElementById("game-intro");
         this.gameScreen = document.getElementById("game-screen");
         this.gameEndScreen = document.getElementById("game-end");
-        this.player = null;
+        this.player = new Player(
+            this.gameScreen,
+            200,
+            500,
+            30,
+            50,
+            "/images/car.png"
+            );
         this.height = 600;
         this.width = 500;
         this.obstacles = [];
@@ -18,6 +25,7 @@ class Game {
         this.gameScreen.style.width = `${this.width}px`;
         this.startScreen.style.display = "none";
         this.gameScreen.style.display = "block";
+        
         this.gameLoop();
     }
 
@@ -32,7 +40,7 @@ class Game {
     }
 
     update() {
-        console.log("updating");
+        this.player.move();
     }
 
 
